@@ -24,8 +24,8 @@ makeCacheMatrix <- function(x = matrix()) {
   get.inverted.matrix <- function() inverted.matrix
   
   list(set = set, get = get,
-       setmean = setmean,
-       getmean = getmean)
+       set.inverted.matrix = set.inverted.matrix,
+       get.inverted.matrix = get.inverted.matrix)
 }
 
 
@@ -33,15 +33,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   
-  inverted.matrix <- x$get.inverted.matrix(x)
+  inverted.matrix <- x$get.inverted.matrix()
   
-  if(!is.null(x)) {
+  if(!is.null(inverted.matrix)) {
     message("Getting cached data...")
     return(inverted.matrix)
   }
   
   mat <- x$get()
   inverted.matrix <- solve(mat)
-  x$set.inverted.matrix(mat)
-  mat
+  x$set.inverted.matrix(inverted.matrix)
+  inverted.matrix
 }
